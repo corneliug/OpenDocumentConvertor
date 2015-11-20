@@ -3,7 +3,8 @@ var express = require('express'),
     reqLogger = require('morgan'),
     winston = require('winston'),
     session = require('express-session'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    ApiRoutes = require(__dirname + '/api/routes/ApiRoutes');
 
 global.config = require(__dirname + '/config/config.js');
 
@@ -43,8 +44,11 @@ app.use(session({
 }));
 
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(bodyParser.json()); // for parsing application/json
+//app.use(bodyParser.json({limit: '50mb'})); // for parsing application/json
 
 app.listen(config.port);
+
+app.use('/api/v1', ApiRoutes);
+
 
 module.exports = app;
