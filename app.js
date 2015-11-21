@@ -44,7 +44,7 @@ app.use(session({
 }));
 
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-//app.use(bodyParser.json({limit: '50mb'})); // for parsing application/json
+app.use(bodyParser.json({limit: '50mb'})); // for parsing application/json
 
 app.listen(config.port);
 
