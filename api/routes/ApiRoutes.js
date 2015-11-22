@@ -2,20 +2,26 @@ var express = require('express'),
     router = express.Router(),
     _ = require('lodash'),
     multer  = require('multer'),
-    WebpageConvertor = require('../../converters/WebpageConvertor');
+    WebpageConvertor = require('../../converters/WebpageConvertor'),
+    CloudConvertor = require('../../converters/CloudConvertor');
 
-router.route('/convert')
+router.route('/convert/file')
     .post(multer({ dest: './uploads/'}).single('file'), function(req, res){
-        console.log(req.file); //form files
-
-        res.status(200).json({html: "<h2>Title</h2><p>text</p>"});
+        CloudConvertor.convert(req.file, function(response){
+            res.status(200).send(response);
+        });
     });
 
 router.route('/convert/webpage')
     .post(function(req, res){
 
-        WebpageConvertor.extractData(req.body, function(output){
-            res.status(200).json(output);
+        WebpageConvertor.extractData(req.body, function(response){
+            if(response.status == 200) {
+                res.status(200).json({html: response.message, images: response.images});
+            } else {
+                res.status(response.status).json({message: response.message});
+            }
+
         });
     });
 

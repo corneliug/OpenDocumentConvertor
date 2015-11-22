@@ -8,6 +8,8 @@ var express = require('express'),
 
 global.config = require(__dirname + '/config/config.js');
 
+require('dotenv').config({path: '.env'});
+
 var app = express();
 
 winston.level = config.logging_level;

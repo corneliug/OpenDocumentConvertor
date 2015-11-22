@@ -24,14 +24,14 @@ exports.extractData = function(options, callback){
                     });
                 });
 
-                callback({html: html, images: images});
+                callback({status: 200, message: html, images: images});
             } else {
                 logger.log('info', 'Error extracting data from webpage: %s', options.url);
-                callback({html:'', images:[]});
+                callback({status: 501, message:'Error extracting data from webpage:' + options.url, images:[]});
             }
         });
 
     } else {
-        callback({html:'', images:[]});
+        callback({status: 400, message:'The request is missing one of the parameters: url, selector, exclude, images', images:[]});
     }
 }
