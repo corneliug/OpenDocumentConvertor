@@ -3,11 +3,11 @@ var express = require('express'),
     _ = require('lodash'),
     multer  = require('multer'),
     WebpageConvertor = require('../../converters/WebpageConvertor'),
-    CloudConvertor = require('../../converters/CloudConvertor');
+    DocumentConvertor = require('../../converters/DocumentConvertor');
 
 router.route('/convert/file')
     .post(multer({ dest: './uploads/'}).single('file'), function(req, res){
-        CloudConvertor.convert(req.file, function(response){
+        DocumentConvertor.convert(req.file, function(response){
             res.status(200).send(response);
         });
     });
