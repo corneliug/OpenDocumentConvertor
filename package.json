@@ -20,6 +20,8 @@
     "striptags": "~2.0.4",
     "js-striphtml": "~1.1.2",
     "adm-zip": "~0.4.7",
-    "file-type": "*"
+    "file-type": "*",
+    "googleapis ": "*",
+    "google-auth-library ": "*"
   }
 }

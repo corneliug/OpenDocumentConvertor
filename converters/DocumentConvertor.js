@@ -62,12 +62,12 @@ exports.convert = function(options, callback){
                                                 }
 
                                                 if(zipEntries[i].name.match(/-\d+.html$/)!=null) {
-                                                    htmlPayload += zip.readAsText(zipEntries[i]);
+                                                    htmlPayload += zip.readAsText(zipEntries[i], 'utf-8');
                                                 }
                                             }
 
                                             if(htmlIndexes.length==1){
-                                                htmlPayload += zip.readAsText(zipEntries[htmlIndexes[0]]);
+                                                htmlPayload += zip.readAsText(zipEntries[htmlIndexes[0]], 'utf-8');
                                             }
 
                                             $this.stripTags(htmlPayload, function(html){
