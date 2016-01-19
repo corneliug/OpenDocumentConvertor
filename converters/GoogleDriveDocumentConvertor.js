@@ -1,6 +1,8 @@
-var fs = require('fs');
-var google = require('googleapis');
-var googleAuth = require('google-auth-library');
+var fs = require('fs'),
+    google = require('googleapis'),
+    googleAuth = require('google-auth-library'),
+    striptags = require('striptags'),
+    striphtml = require('js-striphtml');
 
 exports.getDocument = function(authCode, fileId, callback){
     var $this = this;
@@ -8,7 +10,9 @@ exports.getDocument = function(authCode, fileId, callback){
     $this.authorize(authCode, function(oauth2Client){
        $this.convertGDriveDocument(oauth2Client, fileId, function(html){
            if(html!=null) {
-               callback({status: 200, message: html});
+               $this.stripTags(html, function(formattedHtml){
+                   callback({status: 200, message: formattedHtml});
+               });
            } else {
                callback({status: 500, message: 'err'});
            }
@@ -51,4 +55,11 @@ exports.convertGDriveDocument = function(auth, fileId, callback) {
 
         callback(response);
     });
+}
+
+exports.stripTags = function(html, callback){
+    var res = striptags(html, config.allowed_tags);
+    res = striphtml.stripAttr(res, undefined);
+
+    callback(res);
 }
