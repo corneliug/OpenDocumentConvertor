@@ -23,7 +23,7 @@ Response
 Websites
 --------
 
-Input
+Request
 ```
 {
   "url": "https://en.wikipedia.org/wiki/Oakland,_California",
@@ -31,7 +31,7 @@ Input
   "exclude": ".toc, .infobox, .reflist",
   "images": "#content img"
 }
-
+```
 
 Response
 ```
