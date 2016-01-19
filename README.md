@@ -3,7 +3,7 @@ Documents (.doc/docx, .pdf)
 
 Input 1: post file directly:
 ```
-curl -F file=@/some/file/on/your/local/disk http://localhost:8080
+curl -F file=@/some/file/on/your/local/disk http://localhost:8080/convert/file
 ```
 
 Input 2: post url to file
@@ -20,8 +20,6 @@ Response
 }
 ```
 
-
-
 Websites
 --------
 
@@ -34,12 +32,6 @@ Input
   "images": "#content img"
 }
 
-```
-(Command to run)
-```
-html=$(settings.selector).remove(settings.exclude).html();
-images=$(settings.image).remove(settings.exclude).html(); // (extract src and alt/title attributes)
-```
 
 Response
 ```
@@ -57,20 +49,19 @@ Response
 
 Google docs
 -----------
-This will probably take a little collaboration between the two of us. We're working on an Angular app that will call these endpoints.  The angular app is going to be authenticating users and can ask for the 
-proper permissions and can pass the tokens to the rest endpoint (as long as it's secure).  Ideally, we would like to be able to install the Angular app in multiple places without having to have different 
-Google apps, so if there's some way the Google authentication can happen within the rest app, that would be great.  We'll probably want to talk about this when you get there.  The attached gdrive2.zip file
-get the HTML code from a private Google Doc file in php, so hopefully you can just rewrite most of that code in node.
 
-
-
-
-
-Cleanup
--------
-
-We would like to strip most of the html tags. It seems like it can be done with String.replace: https://css-tricks.com/snippets/javascript/strip-html-tags-in-javascript/, http://phpjs.org/functions/strip_tags/.
-The tags we would like to keep:
+Request
 ```
-p,a,div,span,h2,h3,h4,h5,h6,section,article,strong,b,i,em,cite,blockquote,small,sub,sup,code,pre,ul,ol,li,dl,dt,dd,table,tbody,thead,th,tr,td,img,caption,br
+POST localhost:8080/api/v1/convert/file/gdrive
+
+{
+    "auth_code":"4/HbgglOj-Wxq7AEuqH-nIRn4pkIrLzWUjx_8-qB9lk-Q",
+    "file_id":"1jMITY0G-yAqcsY-JQIVAUxeGoUqJWDWW6ox9_ipwl7g"
+}
+
+```
+
+Response
+```
+  The file from Google Drive, converted as html and stripped of the html tags.
 ```
